@@ -38,7 +38,7 @@ type User struct {
 	gorm.Model        //包含ID uint `gorm:"primarykey"`，CreatedAt time.Time，UpdatedAt time.Time，DeletedAt DeletedAt `gorm:"index"`
 	Name       string `gorm:"type:varchar(30);not null" json:"name" form:"name" binding:"required"`
 	Phone      string `gorm:"type:varchar(20); unique" json:"phone" form:"phone" binding:"required,e164"`
-	PostNum    int    `gorm:"default:0" json:"post_num" form:"post_num" binding:"omitempty,required,number"`
+	PostNum    int    `gorm:"default:0" json:"postNum" form:"postNum" binding:"omitempty,number"`
 }
 
 type Post struct {
