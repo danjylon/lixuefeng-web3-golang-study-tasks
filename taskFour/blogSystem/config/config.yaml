@@ -1,0 +1,27 @@
+# config/config.yaml
+server:
+  port: 9999
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: "root@1234"
+  dbname: blog_system
+  charset: utf8mb4
+  loc: Local #Asia/Shanghai
+  timeout: 30s
+  readTimeout: 30s
+  writeTimeout: 30s
+  maxIdleConns: 10
+  maxOpenConns: 50
+  maxLifetime: 60s
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  db: 0
+  dialTimeout: 5s
+  readTimeout: 3s
+  writeTimeout: 3s

@@ -1,12 +1,14 @@
 package main
 
 import (
-	_ "blogSystem/config"
-	"blogSystem/models"
+	. "blogSystem/config"
+	. "blogSystem/models"
 	. "blogSystem/routers"
+	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"log"
 )
 
 /*
@@ -39,7 +41,11 @@ comments 表：存储文章评论信息，包括 id 、 content 、 user_id （�
 使用日志库记录系统的运行信息和错误信息，方便后续的调试和维护。
 */
 func main() {
-	models.InitTables()
+	// 初始化配置和数据库
+	if err := InitDatabase(); err != nil {
+		panic(fmt.Sprintf("初始化失败: %v", err))
+	}
+	InitTables()
 	engine := gin.Default()
 	//设置session，secret是用于加密的密钥
 	store := cookie.NewStore([]byte("secret"))
@@ -53,7 +59,9 @@ func main() {
 	engine.Static("/static", "./static")
 	// 初始化路由
 	InitRouters(engine)
-	err := engine.Run(":9999")
+	port := GetServerPort()
+	log.Println("port:", port)
+	err := engine.Run(port)
 	if err != nil {
 		return
 	}
